@@ -21,6 +21,9 @@ jobs:
         os: [ubuntu-latest, windows-latest]
         python-version: ["3.10", "3.11", "3.12", "3.13", "3.14", "3.13t", "3.14t"]
 
+    env:
+      UV_PYTHON: ${{ matrix.python-version }}
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -36,13 +39,13 @@ jobs:
           uv pip install -e ".[dev]"
 
       - name: Run Pytest Test Suite
-        run: uv run pytest -v tests/
+        run: uv run --python ${{ matrix.python-version }} pytest -v tests/
 
       - name: Verify Examples Execution
         run: |
-          uv run python examples/01_quickstart.py
-          uv run python examples/02_ecommerce_agent.py
-          uv run python examples/03_guard_bailout.py
+          uv run --python ${{ matrix.python-version }} python examples/01_quickstart.py
+          uv run --python ${{ matrix.python-version }} python examples/02_ecommerce_agent.py
+          uv run --python ${{ matrix.python-version }} python examples/03_guard_bailout.py
 
       - name: Verify Benchmark Execution
-        run: uv run python benchmarks/benchmark_speedup.py
+        run: uv run --python ${{ matrix.python-version }} python benchmarks/benchmark_speedup.py
