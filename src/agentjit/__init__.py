@@ -20,8 +20,9 @@ from agentjit.types import (
     Trajectory,
     ValueSource,
 )
+from agentjit.utils import format_table
 
-__version__ = "0.1.2"
+__version__ = "0.1.3"
 __all__ = [
     "jit",
     "JITWrapper",
@@ -40,4 +41,5 @@ __all__ = [
     "CompilationResult",
     "ExecutionMetrics",
     "ToolDispatcher",
+    "format_table",
 ]
