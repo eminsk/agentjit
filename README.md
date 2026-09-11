@@ -14,13 +14,13 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-blueviolet.svg)](https://github.com/eminsk/agentjit)
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/eminsk/agentjit/blob/main/notebooks/AgentJIT_Demo.ipynb)
 
-[**Quickstart**](#-quickstart) • [**Why AgentJIT?**](#-the-problem-in-2026-why-agentjit) • [**Architecture**](#-architecture) • [**Benchmarks**](#-benchmarks) • [**Speculative Execution**](#-speculative-execution--bailouts)
+[**Quickstart**](#quickstart) • [**Why AgentJIT?**](#the-problem-in-2026-why-agentjit) • [**Architecture**](#architecture) • [**Benchmarks**](#benchmarks) • [**Speculative Execution**](#speculative-execution--bailouts)
 
 </div>
 
 ---
 
-## 💥 The Problem in 2026: Why AgentJIT?
+## <a id="the-problem-in-2026-why-agentjit"></a>💥 The Problem in 2026: Why AgentJIT?
 
 In 2026, autonomous AI agents solve real-world workflows across business, DevOps, and data analysis. However, running stochastic LLM loops in production faces four critical barriers:
 
@@ -29,7 +29,9 @@ In 2026, autonomous AI agents solve real-world workflows across business, DevOps
 3. **Flakiness & Hallucinations:** Even 98% reliability per step leads to compounding errors across multi-turn trajectories.
 4. **Redundant Reasoning:** Most agent invocations execute the *exact same structural trajectory* with slightly different input parameters (e.g. different user IDs or dates).
 
-### The Solution: Trajectory JIT Compilation
+---
+
+## <a id="architecture"></a>🏗️ Architecture & Trajectory JIT Compilation
 
 Just like **V8** compiles hot JavaScript into machine code, and **PyTorch `torch.compile`** traces dynamic tensors into optimized CUDA kernels, **AgentJIT traces dynamic agent trajectories and compiles them into pure, type-safe, ultra-fast Python code.**
 
@@ -74,7 +76,7 @@ Just like **V8** compiles hot JavaScript into machine code, and **PyTorch `torch
 
 ---
 
-## 🚀 Quickstart
+## <a id="quickstart"></a>🚀 Quickstart
 
 ### Installation
 
@@ -147,7 +149,7 @@ def compiled_checkout_agent(product_name, tax_rate):
 
 ---
 
-## 📊 Benchmarks
+## <a id="benchmarks"></a>📊 Benchmarks
 
 Benchmark comparing a simulated 3-step reasoning agent (15s latency, 2,500 tokens) vs AgentJIT compiled execution over 100 runs:
 
@@ -159,7 +161,7 @@ Benchmark comparing a simulated 3-step reasoning agent (15s latency, 2,500 token
 
 ---
 
-## 🛡️ Speculative Execution & Bailouts
+## <a id="speculative-execution--bailouts"></a>🛡️ Speculative Execution & Bailouts
 
 What happens when an input is unusual or triggers an unexpected branch?
 
