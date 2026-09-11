@@ -30,7 +30,14 @@ jobs:
           UV_PUBLISH_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
         run: |
           if [ -n "$UV_PUBLISH_TOKEN" ]; then
-            uv publish --token "$UV_PUBLISH_TOKEN"
+            output=$(uv publish --token "$UV_PUBLISH_TOKEN" 2>&1) || {
+              if echo "$output" | grep -qi "already exists"; then
+                echo "Release already exists on PyPI. Skipping duplicate upload."
+              else
+                echo "$output"
+                exit 1
+              fi
+            }
           else
             echo "PYPI_API_TOKEN secret not configured yet. Add it in GitHub Repo Settings -> Secrets."
           fi
