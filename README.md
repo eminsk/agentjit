@@ -8,7 +8,7 @@
 [![PyPI Version](https://img.shields.io/pypi/v/agentjit.svg)](https://pypi.org/project/agentjit/)
 [![Python Version](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-blue.svg)](https://python.org)
 [![License](https://img.shields.io/badge/license-Apache--2.0-green.svg)](LICENSE)
-[![Tests](https://img.shields.io/badge/tests-passing-brightgreen.svg)]()
+[![CI Test Suite](https://github.com/eminsk/agentjit/actions/workflows/ci.yml/badge.svg)](https://github.com/eminsk/agentjit/actions/workflows/ci.yml)
 [![Speedup](https://img.shields.io/badge/speedup-1000x%2B-orange.svg)]()
 [![Token Cost](https://img.shields.io/badge/tokens%20on%20hot%20path-%240.00-brightgreen.svg)]()
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-blueviolet.svg)](https://github.com/eminsk/agentjit)
