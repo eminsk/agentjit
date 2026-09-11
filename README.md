@@ -13,7 +13,7 @@
 [![Speedup](https://img.shields.io/badge/speedup-1000x%2B-orange.svg)]()
 [![Token Cost](https://img.shields.io/badge/tokens%20on%20hot%20path-%240.00-brightgreen.svg)]()
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-blueviolet.svg)](https://github.com/eminsk/agentjit)
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/eminsk/agentjit/blob/main/notebooks/AgentJIT_Demo.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/eminsk/agentjit/blob/main/notebooks/AgentJIT_Interactive_Demo.ipynb)
 
 [**Quickstart**](#quickstart) • [**Why AgentJIT?**](#the-problem-in-2026-why-agentjit) • [**Architecture**](#architecture) • [**Benchmarks**](#benchmarks) • [**Speculative Execution**](#speculative-execution--bailouts)
 

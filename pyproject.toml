@@ -45,7 +45,7 @@ Homepage = "https://github.com/eminsk/agentjit"
 Documentation = "https://github.com/eminsk/agentjit#readme"
 Repository = "https://github.com/eminsk/agentjit.git"
 Issues = "https://github.com/eminsk/agentjit/issues"
-"Interactive Colab Demo" = "https://colab.research.google.com/github/eminsk/agentjit/blob/main/notebooks/AgentJIT_Demo.ipynb"
+"Interactive Colab Demo" = "https://colab.research.google.com/github/eminsk/agentjit/blob/main/notebooks/AgentJIT_Interactive_Demo.ipynb"
 
 [project.optional-dependencies]
 dev = [
