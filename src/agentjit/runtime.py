@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import inspect
+import threading
 import time
 import uuid
 from typing import Any, Callable, Dict, List, Optional
@@ -26,6 +27,7 @@ class CompiledPipeline:
         self.estimated_uncompiled_latency_ms = estimated_uncompiled_latency_ms
         self.estimated_uncompiled_tokens = estimated_uncompiled_tokens
 
+        self._stats_lock = threading.Lock()
         self._call_count = 0
         self._compiled_hits = 0
         self._bailout_count = 0
@@ -54,7 +56,8 @@ class CompiledPipeline:
         }
 
     def __call__(self, *args, **kwargs) -> Any:
-        self._call_count += 1
+        with self._stats_lock:
+            self._call_count += 1
         run_id = str(uuid.uuid4())[:8]
         t0 = time.perf_counter()
 
@@ -67,10 +70,7 @@ class CompiledPipeline:
                 result = self.compilation.compiled_callable(**bound_kwargs)
                 dt_ms = (time.perf_counter() - t0) * 1000.0
 
-                self._compiled_hits += 1
                 time_saved = max(0.0, self.estimated_uncompiled_latency_ms - dt_ms)
-                self._total_time_saved_ms += time_saved
-
                 metric = ExecutionMetrics(
                     run_id=run_id,
                     duration_ms=dt_ms,
@@ -79,19 +79,26 @@ class CompiledPipeline:
                     tokens_saved=self.estimated_uncompiled_tokens,
                     estimated_cost_saved_usd=(self.estimated_uncompiled_tokens / 1000.0) * 0.003,
                 )
-                self._metrics_history.append(metric)
+
+                with self._stats_lock:
+                    self._compiled_hits += 1
+                    self._total_time_saved_ms += time_saved
+                    self._metrics_history.append(metric)
+
                 return result
 
             except GuardViolation as gv:
                 # Guard failed -> Trigger speculative de-optimization (bailout)
-                self._bailout_count += 1
+                with self._stats_lock:
+                    self._bailout_count += 1
                 if self.fallback_fn is not None:
                     return self._execute_fallback(run_id, t0, *args, **kwargs)
                 raise gv
 
             except Exception as ex:
                 # Execution error inside tool -> De-optimize to fallback if present
-                self._bailout_count += 1
+                with self._stats_lock:
+                    self._bailout_count += 1
                 if self.fallback_fn is not None:
                     return self._execute_fallback(run_id, t0, *args, **kwargs)
                 raise ex
@@ -113,7 +120,8 @@ class CompiledPipeline:
             tokens_saved=0,
             estimated_cost_saved_usd=0.0,
         )
-        self._metrics_history.append(metric)
+        with self._stats_lock:
+            self._metrics_history.append(metric)
         return res
 
     def _bind_arguments(self, *args, **kwargs) -> Dict[str, Any]:

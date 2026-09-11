@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import functools
 import inspect
+import threading
 from typing import Any, Callable, Dict, Optional
 
 from agentjit.compiler import create_compiled_pipeline
@@ -26,6 +27,7 @@ class JITWrapper:
         self.auto_compile = auto_compile
         self.function_name = function_name or f"compiled_{func.__name__}"
 
+        self._compile_lock = threading.Lock()
         self._runs_completed = 0
         self._pipeline: Optional[CompiledPipeline] = None
         self._last_trajectory = None
@@ -53,32 +55,39 @@ class JITWrapper:
     def stats(self) -> Dict[str, Any]:
         """Access performance and execution statistics."""
         if self._pipeline:
-            return self._pipeline.stats
+            s = dict(self._pipeline.stats)
+            s["total_calls"] += self._runs_completed
+            return s
         return {"status": "uncompiled", "warmup_progress": f"{self._runs_completed}/{self.warmup_runs}"}
 
     def __call__(self, *args, **kwargs) -> Any:
-        # If already compiled, execute optimized pipeline
+        # Fast path if already compiled
         if self._pipeline is not None:
             return self._pipeline(*args, **kwargs)
 
-        # Warmup / Tracing phase
-        sig = inspect.signature(self.func)
-        bound = sig.bind(*args, **kwargs)
-        bound.apply_defaults()
-        entry_args = dict(bound.arguments)
+        with self._compile_lock:
+            # Double-check inside lock
+            if self._pipeline is not None:
+                return self._pipeline(*args, **kwargs)
 
-        with Tracer(entry_args=entry_args) as tracer:
-            result = self.func(*args, **kwargs)
-            tracer.set_final_result(result)
-            self._last_trajectory = tracer.trajectory
+            # Warmup / Tracing phase
+            sig = inspect.signature(self.func)
+            bound = sig.bind(*args, **kwargs)
+            bound.apply_defaults()
+            entry_args = dict(bound.arguments)
 
-        self._runs_completed += 1
+            with Tracer(entry_args=entry_args) as tracer:
+                result = self.func(*args, **kwargs)
+                tracer.set_final_result(result)
+                self._last_trajectory = tracer.trajectory
 
-        # Check if warmup threshold reached
-        if self.auto_compile and self._runs_completed >= self.warmup_runs:
-            self._compile_from_tracer(tracer)
+            self._runs_completed += 1
 
-        return result
+            # Check if warmup threshold reached
+            if self.auto_compile and self._runs_completed >= self.warmup_runs:
+                self._compile_from_tracer(tracer)
+
+            return result
 
     def _compile_from_tracer(self, tracer: Tracer) -> None:
         """Trigger compilation using the captured trajectory and tools."""

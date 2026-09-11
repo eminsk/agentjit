@@ -47,3 +47,26 @@ def test_jit_end_to_end():
     assert agent_executions == 1
     assert process_order_agent.stats["compiled_hits"] == 2
     assert process_order_agent.stats["total_tokens_saved"] > 0
+
+
+def test_concurrent_multithreaded_execution():
+    import concurrent.futures
+
+    @jit
+    def concurrent_pipeline(order_id: int, rate: float):
+        order = fetch_order(order_id=order_id)
+        tax = calculate_vat(total=order["total"], rate=rate)
+        return create_invoice(order_id=order_id, tax=tax)
+
+    # 40 concurrent invocations across 8 threads (Free-threaded No-GIL stress test)
+    def worker(idx: int):
+        return concurrent_pipeline(idx, 0.10)
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=8) as executor:
+        futures = [executor.submit(worker, 1000 + i) for i in range(40)]
+        results = [f.result() for f in futures]
+
+    assert len(results) == 40
+    assert concurrent_pipeline.is_compiled is True
+    assert concurrent_pipeline.stats["total_calls"] == 40
+    assert concurrent_pipeline.stats["compiled_hits"] >= 39
