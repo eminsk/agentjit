@@ -5,9 +5,9 @@
 ### Just-In-Time Compiler for AI Agent Trajectories
 **Compile flaky, 30-second multi-step AI Agent workflows into 5-millisecond deterministic code.**
 
-[![PyPI Version](https://img.shields.io/pypi/v/agentjit.svg)](https://pypi.org/project/agentjit/)
-[![Python Version](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13%20%7C%203.14-blue.svg)](https://python.org)
-[![Free-Threaded No-GIL](https://img.shields.io/badge/No--GIL%20(PEP%20703)-3.13t%20%7C%203.14t%20ready-blueviolet.svg)](https://peps.python.org/pep-0703/)
+[![PyPI Version](https://img.shields.io/badge/pypi-v0.1.2-orange.svg?style=flat)](https://pypi.org/project/agentjit/)
+[![Python Version](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13%20%7C%203.14-blue.svg?style=flat)](https://pypi.org/project/agentjit/)
+[![Free-Threaded No-GIL](https://img.shields.io/badge/No--GIL%20(PEP%20703)-3.13t%20%7C%203.14t%20ready-blueviolet.svg?style=flat)](https://pypi.org/project/agentjit/)
 [![License](https://img.shields.io/badge/license-Apache--2.0-green.svg)](LICENSE)
 [![CI Test Suite](https://github.com/eminsk/agentjit/actions/workflows/ci.yml/badge.svg)](https://github.com/eminsk/agentjit/actions/workflows/ci.yml)
 [![Speedup](https://img.shields.io/badge/speedup-1000x%2B-orange.svg)]()
