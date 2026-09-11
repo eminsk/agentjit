@@ -30,7 +30,7 @@ jobs:
           UV_PUBLISH_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
         run: |
           if [ -n "$UV_PUBLISH_TOKEN" ]; then
-            uv publish --token "$UV_PUBLISH_TOKEN" --check-url https://pypi.org/simple/
+            uv publish --token "$UV_PUBLISH_TOKEN"
           else
             echo "PYPI_API_TOKEN secret not configured yet. Add it in GitHub Repo Settings -> Secrets."
           fi

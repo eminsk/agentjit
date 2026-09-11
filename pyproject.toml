@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "agentjit"
-version = "0.1.1"
+version = "0.1.2"
 description = "Just-In-Time Compiler for AI Agent Trajectories. Compiles multi-step LLM workflows into ultra-fast deterministic Python code with zero token cost."
 readme = "README.md"
 requires-python = ">=3.10"
@@ -39,6 +39,13 @@ classifiers = [
     "Programming Language :: Python :: 3 :: Only",
 ]
 dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/eminsk/agentjit"
+Documentation = "https://github.com/eminsk/agentjit#readme"
+Repository = "https://github.com/eminsk/agentjit.git"
+Issues = "https://github.com/eminsk/agentjit/issues"
+"Interactive Colab Demo" = "https://colab.research.google.com/github/eminsk/agentjit/blob/main/notebooks/AgentJIT_Demo.ipynb"
 
 [project.optional-dependencies]
 dev = [
