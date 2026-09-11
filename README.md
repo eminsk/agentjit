@@ -10,7 +10,7 @@
 [![Tests](https://img.shields.io/badge/tests-passing-brightgreen.svg)]()
 [![Speedup](https://img.shields.io/badge/speedup-1000x%2B-orange.svg)]()
 [![Token Cost](https://img.shields.io/badge/tokens%20on%20hot%20path-%240.00-brightgreen.svg)]()
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-blueviolet.svg)](https://github.com/)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-blueviolet.svg)](https://github.com/eminsk/agentjit)
 
 [**Quickstart**](#-quickstart) • [**Why AgentJIT?**](#-the-problem-in-2026-why-agentjit) • [**Architecture**](#-architecture) • [**Benchmarks**](#-benchmarks) • [**Speculative Execution**](#-speculative-execution--bailouts)
 
