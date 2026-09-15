@@ -40,28 +40,26 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install uv
-        uses: astral-sh/setup-uv@v5
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
         with:
-          version: "latest"
-          enable-cache: false
+          python-version: ${{ matrix.python-version }}
+          allow-prereleases: true
 
-      - name: Install Python ${{ matrix.python-version }}
-        run: uv python install ${{ matrix.python-version }}
-
-      - name: Set up Python venv and install dependencies
+      - name: Install dependencies
         run: |
-          uv venv --python ${{ matrix.python-version }}
-          uv pip install -e ".[dev]"
+          python -m pip install --upgrade pip setuptools wheel pytest
+          python -m pip install "typing-extensions>=4.0; python_version < '3.10'" rich
+          python -m pip install -e .
 
       - name: Run Pytest Test Suite
-        run: uv run --python ${{ matrix.python-version }} pytest -v tests/
+        run: pytest -v tests/
 
       - name: Verify Examples Execution
         run: |
-          uv run --python ${{ matrix.python-version }} python examples/01_quickstart.py
-          uv run --python ${{ matrix.python-version }} python examples/02_ecommerce_agent.py
-          uv run --python ${{ matrix.python-version }} python examples/03_guard_bailout.py
+          python examples/01_quickstart.py
+          python examples/02_ecommerce_agent.py
+          python examples/03_guard_bailout.py
 
       - name: Verify Benchmark Execution
-        run: uv run --python ${{ matrix.python-version }} python benchmarks/benchmark_speedup.py
+        run: python benchmarks/benchmark_speedup.py
