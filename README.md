@@ -6,8 +6,9 @@
 **Compile flaky, 30-second multi-step AI Agent workflows into 5-millisecond deterministic code.**
 
 [![PyPI Version](https://img.shields.io/badge/pypi-v0.1.3-orange.svg?style=flat)](https://pypi.org/project/agentjit/)
-[![Python Version](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13%20%7C%203.14-blue.svg?style=flat)](https://pypi.org/project/agentjit/)
-[![Free-Threaded No-GIL](https://img.shields.io/badge/No--GIL%20(PEP%20703)-3.13t%20%7C%203.14t%20ready-blueviolet.svg?style=flat)](https://pypi.org/project/agentjit/)
+[![Python Version](https://img.shields.io/badge/python-3.8%20--%203.15-blue.svg?style=flat)](https://pypi.org/project/agentjit/)
+[![PyPy](https://img.shields.io/badge/PyPy-3.8%20--%203.11-orange.svg)](https://www.pypy.org/)
+[![Free-Threaded No-GIL](https://img.shields.io/badge/No--GIL%20(PEP%20703)-3.13t%20%7C%203.14t%20%7C%203.15t-blueviolet.svg?style=flat)](https://pypi.org/project/agentjit/)
 [![License](https://img.shields.io/badge/license-Apache--2.0-green.svg)](LICENSE)
 [![CI Test Suite](https://github.com/eminsk/agentjit/actions/workflows/ci.yml/badge.svg)](https://github.com/eminsk/agentjit/actions/workflows/ci.yml)
 [![Speedup](https://img.shields.io/badge/speedup-1000x%2B-orange.svg)]()
@@ -15,9 +16,20 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-blueviolet.svg)](https://github.com/eminsk/agentjit)
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/eminsk/agentjit/blob/main/notebooks/AgentJIT_Interactive_Demo.ipynb)
 
-[**Quickstart**](#quickstart) • [**Why AgentJIT?**](#the-problem-in-2026-why-agentjit) • [**Architecture**](#architecture) • [**Benchmarks**](#benchmarks) • [**Speculative Execution**](#speculative-execution--bailouts)
+[**Quickstart**](#quickstart) • [**Compatibility**](#compatibility) • [**Why AgentJIT?**](#the-problem-in-2026-why-agentjit) • [**Architecture**](#architecture) • [**Benchmarks**](#benchmarks)
 
 </div>
+
+---
+
+## <a id="compatibility"></a>🧩 Universal Compatibility Matrix
+
+| Runtime / Implementation | Supported Versions | Execution Mode | Status |
+|:---|:---|:---|:---:|
+| **CPython (Standard)** | 3.8, 3.9, 3.10, 3.11, 3.12, 3.13, 3.14, 3.15 | Bytecode + GIL | ✅ Fully Supported |
+| **CPython (Free-Threaded)** | 3.13t, 3.14t, 3.15t | Multi-core No-GIL (PEP 703) | ✅ Fully Supported |
+| **PyPy (JIT Accelerated)** | 3.8, 3.9, 3.10, 3.11 | High-speed JIT tracing | ✅ Fully Supported |
+| **Operating Systems** | Windows (7, 8, 10, 11), Linux, macOS (Intel & Apple Silicon) | x86_64, ARM64 | ✅ Fully Supported |
 
 ---
 

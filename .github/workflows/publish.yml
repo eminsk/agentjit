@@ -1,43 +1,38 @@
-name: Publish Python Package to PyPI
+name: Publish to PyPI
 
 on:
-  release:
-    types: [published]
   workflow_dispatch:
-
-permissions:
-  contents: read
-  id-token: write
+  push:
+    tags:
+      - "v*"
 
 jobs:
-  pypi-publish:
-    name: Build and publish to PyPI
+  build-and-publish:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Install uv
-        uses: astral-sh/setup-uv@v3
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
-          version: "latest"
+          python-version: "3.12"
+          allow-prereleases: true
 
-      - name: Build distribution packages
-        run: uv build
-
-      - name: Publish package to PyPI
-        env:
-          UV_PUBLISH_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
+      - name: Install build tooling
         run: |
-          if [ -n "$UV_PUBLISH_TOKEN" ]; then
-            output=$(uv publish --token "$UV_PUBLISH_TOKEN" 2>&1) || {
-              if echo "$output" | grep -qi "already exists"; then
-                echo "Release already exists on PyPI. Skipping duplicate upload."
-              else
-                echo "$output"
-                exit 1
-              fi
-            }
-          else
-            echo "PYPI_API_TOKEN secret not configured yet. Add it in GitHub Repo Settings -> Secrets."
-          fi
+          python -m pip install --upgrade pip build
+
+      - name: Build sdist and wheel
+        run: python -m build
+
+      - name: Publish to PyPI
+        if: success()
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          skip-existing: true
+          verify-metadata: false
+          password: ${{ secrets.PYPI_API_TOKEN }}
+
