@@ -5,7 +5,7 @@
 ### Just-In-Time Compiler for AI Agent Trajectories
 **Compile flaky, 30-second multi-step AI Agent workflows into 5-millisecond deterministic code.**
 
-[![PyPI Version](https://img.shields.io/badge/pypi-v0.1.3-orange.svg?style=flat)](https://pypi.org/project/agentjit/)
+[![PyPI Version](https://img.shields.io/pypi/v/agentjit.svg?style=flat)](https://pypi.org/project/agentjit/)
 [![Python Version](https://img.shields.io/badge/python-3.8%20--%203.15-blue.svg?style=flat)](https://pypi.org/project/agentjit/)
 [![PyPy](https://img.shields.io/badge/PyPy-3.8%20--%203.11-orange.svg)](https://www.pypy.org/)
 [![Free-Threaded No-GIL](https://img.shields.io/badge/No--GIL%20(PEP%20703)-3.13t%20%7C%203.14t%20%7C%203.15t-blueviolet.svg?style=flat)](https://pypi.org/project/agentjit/)
