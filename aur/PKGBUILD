@@ -1,0 +1,32 @@
+# Maintainer: eminsk <M_N_N@tut.by>
+
+pkgname=python-agentjit
+_name=agentjit
+pkgver=0.1.4
+pkgrel=1
+pkgdesc="Just-In-Time Compiler for AI Agent Trajectories"
+arch=('any')
+url="https://github.com/eminsk/agentjit"
+license=('Apache-2.0')
+depends=(
+  'python'
+)
+makedepends=(
+  'python-build'
+  'python-installer'
+  'python-wheel'
+  'python-hatchling'
+)
+source=("https://files.pythonhosted.org/packages/source/${_name::1}/${_name}/${_name}-${pkgver}.tar.gz")
+sha256sums=('6c77e112098939fb20d836c85b3bf16f22087ec611550f1371b3c7cc18ece04a')
+
+build() {
+  cd "${srcdir}/${_name}-${pkgver}"
+  python -m build --wheel --no-isolation
+}
+
+package() {
+  cd "${srcdir}/${_name}-${pkgver}"
+  python -m installer --destdir="${pkgdir}" dist/*.whl
+  install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+}

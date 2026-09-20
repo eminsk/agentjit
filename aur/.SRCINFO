@@ -1,0 +1,16 @@
+pkgbase = python-agentjit
+	pkgdesc = Just-In-Time Compiler for AI Agent Trajectories
+	pkgver = 0.1.4
+	pkgrel = 1
+	url = https://github.com/eminsk/agentjit
+	arch = any
+	license = Apache-2.0
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-wheel
+	makedepends = python-hatchling
+	depends = python
+	source = https://files.pythonhosted.org/packages/source/a/agentjit/agentjit-0.1.4.tar.gz
+	sha256sums = 6c77e112098939fb20d836c85b3bf16f22087ec611550f1371b3c7cc18ece04a
+
+pkgname = python-agentjit

@@ -1,0 +1,19 @@
+Source: python-agentjit
+Section: python
+Priority: optional
+Maintainer: eminsk <M_N_N@tut.by>
+Build-Depends: debhelper-compat (= 13),
+               dh-python,
+               pybuild-plugin-pyproject,
+               python3-all,
+               python3-hatchling
+Standards-Version: 4.6.2
+Homepage: https://github.com/eminsk/agentjit
+
+Package: python3-agentjit
+Architecture: all
+Depends: ${misc:Depends},
+         ${python3:Depends}
+Description: Just-In-Time Compiler for AI Agent Trajectories
+ Compiles multi-step LLM workflows into ultra-fast deterministic Python code
+ with zero token cost and sub-millisecond execution.
