@@ -8,7 +8,7 @@
 [![PyPI Version](https://img.shields.io/pypi/v/agentjit.svg?style=flat)](https://pypi.org/project/agentjit/)
 [![Conda-Forge](https://img.shields.io/conda/vn/conda-forge/agentjit.svg?style=flat)](https://anaconda.org/conda-forge/agentjit)
 [![MSYS2](https://img.shields.io/badge/MSYS2-pacman-orange.svg?style=flat)](https://packages.msys2.org/package/mingw-w64-x86_64-python-agentjit)
-[![Debian/Ubuntu](https://img.shields.io/badge/Debian%2FUbuntu-.deb%20package-E95420.svg?style=flat)](https://github.com/eminsk/agentjit/releases)
+[![Debian / Ubuntu PPA](https://img.shields.io/badge/Debian%20%2F%20Ubuntu-APT%20PPA-E95420.svg?style=flat)](https://eminsk.github.io/ppa/)
 [![Arch Linux AUR](https://img.shields.io/badge/Arch_Linux-AUR-1793D1.svg?style=flat)](https://aur.archlinux.org/packages/python-agentjit)
 [![Python Version](https://img.shields.io/badge/python-3.8%20--%203.15-blue.svg?style=flat)](https://pypi.org/project/agentjit/)
 [![PyPy](https://img.shields.io/badge/PyPy-3.8%20--%203.11-orange.svg)](https://www.pypy.org/)
@@ -104,6 +104,7 @@ Just like **V8** compiles hot JavaScript into machine code, and **PyTorch `torch
 | **PyPI (uv)** | `uv add agentjit` |
 | **Conda-Forge** | `conda install -c conda-forge agentjit` |
 | **MSYS2 (MinGW-w64)** | `pacman -S mingw-w64-x86_64-python-agentjit` |
+| **Ubuntu / Debian (APT PPA)** | `curl -sS https://eminsk.github.io/ppa/setup.sh \| sudo bash`<br>`sudo apt install python3-agentjit` |
 | **Ubuntu / Debian (.deb)** | `sudo dpkg -i python3-agentjit_0.1.4-1_all.deb` |
 | **Arch Linux (AUR)** | `yay -S python-agentjit` |
 
