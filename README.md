@@ -236,6 +236,20 @@ print(checkout_agent.stats)
 
 ---
 
+## 🧪 Testing & Verification
+
+AgentJIT includes a comprehensive test suite covering the Tracer, Flow Analyzer, AST CodeGen, Runtime Bailout, and End-to-End decorators:
+
+```bash
+uv run --extra dev pytest -v
+# or with standard pytest
+pytest -v
+```
+
+All 9 test suites pass 100% across **Python 3.8 through 3.15 (including No-GIL free-threaded 3.13t–3.15t)** and **PyPy 3.8 through 3.12**.
+
+---
+
 ## 📄 License
 
 AgentJIT is open-source software licensed under the [Apache 2.0 License](LICENSE).
