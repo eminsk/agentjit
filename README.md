@@ -102,7 +102,7 @@ Just like **V8** compiles hot JavaScript into machine code, and **PyTorch `torch
 | **PyPI (uv)** | `uv add agentjit` |
 | **Conda-Forge** | `conda install -c conda-forge agentjit` |
 | **Ubuntu / Debian (APT PPA)** | `curl -sS https://eminsk.github.io/ppa/setup.sh \| sudo bash`<br>`sudo apt install python3-agentjit` |
-| **Ubuntu / Debian (.deb)** | `sudo dpkg -i python3-agentjit_0.1.5-1_all.deb` |
+| **Ubuntu / Debian (.deb)** | `sudo dpkg -i python3-agentjit_0.1.6-1_all.deb` |
 
 ```bash
 pip install agentjit
