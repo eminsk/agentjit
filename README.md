@@ -208,6 +208,56 @@ checkout_agent(12345, None)  # Transparently de-optimizes, no crash!
 
 ---
 
+## 🤖 Native Model Context Protocol (MCP) Server
+
+AgentJIT provides a built-in **Model Context Protocol (MCP) Server** over JSON-RPC 2.0 stdio, empowering **Claude Desktop**, **Cursor**, **Windsurf**, and **Google Antigravity** to compile their own tool calling trajectories into deterministic Python functions on the fly.
+
+### Quickstart
+
+Launch the MCP server via CLI:
+```bash
+agentjit mcp
+# or using the direct entry point:
+agentjit-mcp
+```
+
+### Client Configuration
+
+Add to your `claude_desktop_config.json`, `.cursor/mcp.json`, or Antigravity MCP settings:
+
+```json
+{
+  "mcpServers": {
+    "agentjit": {
+      "command": "agentjit-mcp"
+    }
+  }
+}
+```
+
+*Or zero-install with `uvx`:*
+```json
+{
+  "mcpServers": {
+    "agentjit": {
+      "command": "uvx",
+      "args": ["agentjit", "mcp"]
+    }
+  }
+}
+```
+
+### Available MCP Tools
+
+| Tool | Purpose | Annotations |
+| :--- | :--- | :---: |
+| `agentjit_compile` | Synthesizes deterministic Python code with input type guards from an agent tool trace. | `readOnlyHint: true` |
+| `agentjit_analyze` | Analyzes DAG data-flow dependencies, identifying constant literals vs dynamic parameters. | `readOnlyHint: true` |
+| `agentjit_simulate_savings` | Computes exact dollar cost and latency savings when compiling recurring LLM workflows. | `readOnlyHint: true` |
+| `agentjit_info` | Returns runtime compiler capabilities, Free-Threaded (PEP 703 No-GIL), and PyPy JIT status. | `readOnlyHint: true` |
+
+---
+
 ## 🛠️ Telemetry & Observability
 
 Monitor your compiled agents in real time:

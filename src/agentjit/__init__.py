@@ -4,10 +4,13 @@ Compiles non-deterministic, expensive multi-step LLM workflows into ultra-fast
 deterministic Python code with zero token costs and automatic speculative fallbacks.
 """
 
+__version__ = "0.1.6"
+
 from agentjit.codegen import GuardViolation
 from agentjit.compiler import compile_trajectory, create_compiled_pipeline
 from agentjit.decorators import jit, JITWrapper
 from agentjit.integrations.base import ToolDispatcher
+from agentjit.mcp_server import AgentJITMCPServer
 from agentjit.runtime import CompiledPipeline
 from agentjit.tracer import Tracer, trace_tool
 from agentjit.types import (
@@ -22,7 +25,6 @@ from agentjit.types import (
 )
 from agentjit.utils import format_table
 
-__version__ = "0.1.6"
 __all__ = [
     "jit",
     "JITWrapper",
@@ -41,5 +43,6 @@ __all__ = [
     "CompilationResult",
     "ExecutionMetrics",
     "ToolDispatcher",
+    "AgentJITMCPServer",
     "format_table",
 ]
