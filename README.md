@@ -6,7 +6,7 @@
 **Compile flaky, 30-second multi-step AI Agent workflows into 5-millisecond deterministic code.**
 
 [![PyPI Version](https://img.shields.io/pypi/v/agentjit.svg?style=flat)](https://pypi.org/project/agentjit/)
-[![Conda-Forge](https://img.shields.io/conda/vn/conda-forge/agentjit.svg?style=flat)](https://anaconda.org/conda-forge/agentjit)
+[![Conda](https://img.shields.io/conda/vn/m_n_nik/agentjit.svg?style=flat&logo=anaconda)](https://anaconda.org/m_n_nik/agentjit)
 [![Debian / Ubuntu PPA](https://img.shields.io/badge/Debian%20%2F%20Ubuntu-APT%20PPA-E95420.svg?style=flat)](https://eminsk.github.io/ppa/)
 [![The Daily Diff](https://img.shields.io/badge/The_Daily_Diff-%231_Top_Story_(9%2F10)-crimson?logo=hackernews)](https://tdd.cat/2026-09-13/)
 [![Python Version](https://img.shields.io/badge/python-3.8%20--%203.16-blue.svg?style=flat)](https://pypi.org/project/agentjit/)
@@ -107,7 +107,7 @@ Just like **V8** compiles hot JavaScript into machine code, and **PyTorch `torch
 |---|---|
 | **PyPI (pip)** | `pip install agentjit` |
 | **PyPI (uv)** | `uv add agentjit` |
-| **Conda-Forge** | `conda install -c conda-forge agentjit` |
+| **Conda (Anaconda.org)** | `conda install -c m_n_nik agentjit` |
 | **Ubuntu / Debian (APT PPA)** | `curl -sS https://eminsk.github.io/ppa/setup.sh \| sudo bash`<br>`sudo apt install python3-agentjit` |
 | **Ubuntu / Debian (.deb)** | `sudo dpkg -i python3-agentjit_0.1.6-1_all.deb` |
 

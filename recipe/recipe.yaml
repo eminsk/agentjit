@@ -1,0 +1,39 @@
+context:
+  name: agentjit
+  version: "0.1.7"
+
+package:
+  name: ${{ name }}
+  version: ${{ version }}
+
+source:
+  path: ..
+
+build:
+  number: 0
+  noarch: python
+  script: ${{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
+  python:
+    entry_points:
+      - agentjit = agentjit.cli:main
+      - agentjit-mcp = agentjit.mcp:main
+
+requirements:
+  host:
+    - python >=3.8
+    - pip
+    - hatchling
+  run:
+    - python >=3.8
+    - pydantic >=2.0
+
+tests:
+  - python:
+      imports:
+        - agentjit
+      pip_check: true
+
+about:
+  homepage: https://github.com/eminsk/agentjit
+  license: Apache-2.0
+  summary: Just-In-Time Compiler for AI Agent Trajectories
