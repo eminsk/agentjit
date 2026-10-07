@@ -18,6 +18,10 @@
 [![Token Cost](https://img.shields.io/badge/tokens%20on%20hot%20path-%240.00-brightgreen.svg)]()
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-blueviolet.svg)](https://github.com/eminsk/agentjit)
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/eminsk/agentjit/blob/main/notebooks/AgentJIT_Interactive_Demo.ipynb)
+[![Donate USDT](https://img.shields.io/badge/Donate-USDT-26A17B?style=flat&logo=tether&logoColor=white)](https://tronscan.org/#/address/TDVbEdnpgNgoAhNcn1EwXxWHiR3RKLit5P)
+
+> ⭐ **Enjoying AgentJIT?** Give it a star on GitHub to support development!  
+> ☕ **Want to support the author?** USDT (TRC-20): `TDVbEdnpgNgoAhNcn1EwXxWHiR3RKLit5P` ([TronScan](https://tronscan.org/#/address/TDVbEdnpgNgoAhNcn1EwXxWHiR3RKLit5P))
 
 [**Quickstart**](#quickstart) • [**Compatibility**](#compatibility) • [**Why AgentJIT?**](#the-problem-in-2026-why-agentjit) • [**Architecture**](#architecture) • [**Benchmarks**](#benchmarks)
 
@@ -314,6 +318,18 @@ All 9 test suites pass 100% across **Python 3.8 through 3.16 (including No-GIL f
 * 📈 [**yfinance-ta-patterns**](https://github.com/eminsk/yfinance-ta-patterns) — Institutional-grade technical pattern scanner with AI Confluence Scoring, Backtester, and Native MCP Server (`pip install yfinance-ta-patterns`).
 * 📊 [**xlsx_vievers**](https://github.com/eminsk/xlsx_vievers) — Headless Excel formula engine (129+ functions), desktop spreadsheet viewer, SIMD SSE2 math, and Native MCP Server (`pip install xlsx-viewer-pro`).
 * 🎥 [**screenvideo**](https://github.com/eminsk/screenvideo) — Desktop screen recorder with WASAPI audio and standalone pure x64 FASM edition.
+
+---
+
+## ☕ Support & Donations
+
+If you find this project valuable and would like to support ongoing development, agent trajectory optimizations, and benchmarks, contributions are deeply appreciated!
+
+* **USDT (TRC-20)**:  
+  `TDVbEdnpgNgoAhNcn1EwXxWHiR3RKLit5P`  
+  *(Network: TRON / TRC-20 | [Verify on TronScan](https://tronscan.org/#/address/TDVbEdnpgNgoAhNcn1EwXxWHiR3RKLit5P))*
+
+[![Donate USDT](https://img.shields.io/badge/Donate-USDT_(TRC20)-26A17B?style=for-the-badge&logo=tether&logoColor=white)](https://tronscan.org/#/address/TDVbEdnpgNgoAhNcn1EwXxWHiR3RKLit5P)
 
 ---
 
