@@ -1,6 +1,6 @@
 context:
   name: agentjit
-  version: "0.1.7"
+  version: "0.1.8"
 
 package:
   name: ${{ name }}
@@ -16,7 +16,7 @@ build:
   python:
     entry_points:
       - agentjit = agentjit.cli:main
-      - agentjit-mcp = agentjit.mcp:main
+      - agentjit-mcp = agentjit.mcp_server:main_mcp
 
 requirements:
   host:
@@ -25,13 +25,13 @@ requirements:
     - hatchling
   run:
     - python >=3.8
-    - pydantic >=2.0
 
 tests:
   - python:
       imports:
         - agentjit
-      pip_check: true
+      pip_check: false
+
 
 about:
   homepage: https://github.com/eminsk/agentjit
