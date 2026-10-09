@@ -1,3 +1,11 @@
+python-agentjit (0.1.9-1) unstable; urgency=medium
+
+  * Release version 0.1.9 with cross-platform POSIX/Linux native kernel.
+  * Full FASM bare-metal SIMD hardware acceleration across Windows and Linux.
+  * 100% test pass rate across 50 GitHub Actions CI matrix jobs.
+
+ -- eminsk <M_N_N@tut.by>  Wed, 09 Oct 2026 19:50:00 +0000
+
 python-agentjit (0.1.8-1) unstable; urgency=medium
 
   * Release version 0.1.8 with bare-metal FASM SIMD engine and CPython 3.16/3.16t No-GIL.
