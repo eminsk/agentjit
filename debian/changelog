@@ -1,3 +1,10 @@
+python-agentjit (0.1.10-1) unstable; urgency=medium
+
+  * Release version 0.1.10: add isa_name property and ergonomic SemanticGuard aliases.
+  * Verified 100% interactive execution in Google Colab notebooks.
+
+ -- eminsk <M_N_N@tut.by>  Wed, 09 Oct 2026 20:03:00 +0000
+
 python-agentjit (0.1.9-1) unstable; urgency=medium
 
   * Release version 0.1.9 with cross-platform POSIX/Linux native kernel.

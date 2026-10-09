@@ -130,15 +130,27 @@ class SemanticGuard(Guard):
         trajectory_embedding: Optional[Sequence[float]] = None,
         similarity_threshold: float = 0.85,
         description: str = "",
+        # Ergonomic aliases for interactive & demo use
+        reference_vector: Optional[Sequence[float]] = None,
+        threshold: Optional[float] = None,
     ) -> None:
+        emb = trajectory_embedding if trajectory_embedding is not None else reference_vector
+        th = threshold if threshold is not None else similarity_threshold
         super().__init__(
             target_param=target_param,
             guard_type="semantic_cosine",
-            condition_code=f"_eval_semantic_guard({target_param}, _traj_emb_{target_param}, {similarity_threshold})",
-            description=description or f"Prompt embedding cosine similarity must be >= {similarity_threshold}",
+            condition_code=f"_eval_semantic_guard({target_param}, _traj_emb_{target_param}, {th})",
+            description=description or f"Prompt embedding cosine similarity must be >= {th}",
         )
-        self.trajectory_embedding = list(trajectory_embedding) if trajectory_embedding else []
-        self.similarity_threshold = similarity_threshold
+        self.trajectory_embedding = list(emb) if emb else []
+        self.similarity_threshold = th
+
+    def evaluate(self, candidate_vector: Sequence[float]) -> bool:
+        """Directly evaluate whether a candidate vector matches within the similarity threshold."""
+        from agentjit.fasm import get_fasm_engine
+        return get_fasm_engine().eval_semantic_guard(
+            candidate_vector, self.trajectory_embedding, self.similarity_threshold
+        )
 
 
 @dataclass

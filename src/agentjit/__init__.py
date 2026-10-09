@@ -4,7 +4,7 @@ Compiles non-deterministic, expensive multi-step LLM workflows into ultra-fast
 deterministic Python code with zero token costs and automatic speculative fallbacks.
 """
 
-__version__ = "0.1.9"
+__version__ = "0.1.10"
 
 from agentjit.codegen import GuardViolation
 from agentjit.compiler import compile_trajectory, create_compiled_pipeline

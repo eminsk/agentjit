@@ -210,6 +210,10 @@ class FASMHardwareEngine:
     def simd_backend(self) -> str:
         return simd_backend()
 
+    @property
+    def isa_name(self) -> str:
+        return self.simd_backend
+
     def fast_hash(self, data: Union[str, bytes], seed: int = 0) -> int:
         """Compute an ultra-fast 64-bit unrolled hash for a string or bytes buffer."""
         raw = data.encode("utf-8") if isinstance(data, str) else bytes(data)
