@@ -102,8 +102,13 @@ class CodeGenerator:
             )
 
         # Execute compilation in controlled namespace
+        from agentjit.fasm import get_fasm_engine
+        fasm_engine = get_fasm_engine()
+
         exec_globals: Dict[str, Any] = {
             "_tools": self.tool_registry,
+            "_fasm": fasm_engine,
+            "_eval_semantic_guard": fasm_engine.eval_semantic_guard,
             "GuardViolation": GuardViolation,
             "isinstance": isinstance,
             "int": int,
@@ -113,6 +118,10 @@ class CodeGenerator:
             "dict": dict,
             "list": list,
         }
+        for g in self.guards:
+            if hasattr(g, "trajectory_embedding") and g.trajectory_embedding:
+                exec_globals[f"_traj_emb_{g.target_param}"] = g.trajectory_embedding
+
         exec_locals: Dict[str, Any] = {}
 
         try:

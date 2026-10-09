@@ -18,12 +18,21 @@ from agentjit.types import (
     ExecutionMetrics,
     ExecutionNode,
     Guard,
+    SemanticGuard,
     SourceType,
     TraceStep,
     Trajectory,
     ValueSource,
 )
+from agentjit.fasm import (
+    FASMHardwareEngine,
+    get_fasm_engine,
+    is_fasm_available,
+    simd_backend,
+)
 from agentjit.utils import format_table
+
+__backend__ = simd_backend()
 
 __all__ = [
     "jit",
@@ -38,6 +47,7 @@ __all__ = [
     "TraceStep",
     "ExecutionNode",
     "Guard",
+    "SemanticGuard",
     "ValueSource",
     "SourceType",
     "CompilationResult",
@@ -45,4 +55,9 @@ __all__ = [
     "ToolDispatcher",
     "AgentJITMCPServer",
     "format_table",
+    "FASMHardwareEngine",
+    "get_fasm_engine",
+    "is_fasm_available",
+    "simd_backend",
+    "__backend__",
 ]

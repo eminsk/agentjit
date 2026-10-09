@@ -1,3 +1,11 @@
+python-agentjit (0.1.8-1) unstable; urgency=medium
+
+  * Release version 0.1.8 with bare-metal FASM SIMD engine and CPython 3.16/3.16t No-GIL.
+  * Add AVX2+FMA (64-bit) and SSE2 (32-bit) hardware microkernels.
+  * Add fast 64-bit prompt/trajectory hash and semantic prompt similarity router.
+
+ -- eminsk <M_N_N@tut.by>  Wed, 09 Oct 2026 14:00:00 +0000
+
 python-agentjit (0.1.6-1) unstable; urgency=medium
 
   * Release version 0.1.6 with Python 3.16 and multi-runtime support.

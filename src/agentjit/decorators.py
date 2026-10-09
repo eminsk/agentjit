@@ -60,6 +60,12 @@ class JITWrapper:
             return s
         return {"status": "uncompiled", "warmup_progress": f"{self._runs_completed}/{self.warmup_runs}"}
 
+    @property
+    def simd_backend(self) -> str:
+        """View the active hardware acceleration backend."""
+        from agentjit.fasm import simd_backend
+        return simd_backend()
+
     def __call__(self, *args, **kwargs) -> Any:
         # Fast path if already compiled
         if self._pipeline is not None:

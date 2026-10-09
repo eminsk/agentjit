@@ -119,6 +119,29 @@ class Guard:
 
 
 @dataclass
+class SemanticGuard(Guard):
+    """Speculative semantic prompt embedding similarity guard powered by FASM."""
+    trajectory_embedding: List[float] = field(default_factory=list)
+    similarity_threshold: float = 0.85
+
+    def __init__(
+        self,
+        target_param: str = "prompt",
+        trajectory_embedding: Optional[Sequence[float]] = None,
+        similarity_threshold: float = 0.85,
+        description: str = "",
+    ) -> None:
+        super().__init__(
+            target_param=target_param,
+            guard_type="semantic_cosine",
+            condition_code=f"_eval_semantic_guard({target_param}, _traj_emb_{target_param}, {similarity_threshold})",
+            description=description or f"Prompt embedding cosine similarity must be >= {similarity_threshold}",
+        )
+        self.trajectory_embedding = list(trajectory_embedding) if trajectory_embedding else []
+        self.similarity_threshold = similarity_threshold
+
+
+@dataclass
 class ExecutionNode:
     """An optimized node in the compiled execution graph."""
     node_id: int

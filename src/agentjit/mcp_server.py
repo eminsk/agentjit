@@ -387,16 +387,21 @@ class AgentJITMCPServer:
 
         if name == "agentjit_info":
             is_nogil = getattr(sys, "_is_gil_enabled", lambda: True)() is False
+            from agentjit.fasm import is_fasm_available, simd_backend
             return {
                 "version": __version__,
                 "python_version": sys.version.split()[0],
                 "is_free_threaded": is_nogil,
                 "implementation": platform.python_implementation(),
                 "platform": platform.platform(),
+                "simd_backend": simd_backend(),
+                "is_fasm_accelerated": is_fasm_available(),
                 "compiler_capabilities": [
                     "AST Code Synthesis",
                     "Dynamic Tool Dispatch",
                     "Speculative Guards & Bailout",
+                    "FASM Hardware AVX2+FMA/SSE2 Microkernels",
+                    "Semantic Prompt Similarity Router",
                     "Sub-millisecond Zero-Token Runtime",
                     "Free-Threaded PEP 703 No-GIL Support",
                 ],
