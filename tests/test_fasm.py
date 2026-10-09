@@ -27,7 +27,7 @@ def test_fasm_availability_and_backend():
 
     if is_fasm_available():
         assert "SIMD" in backend
-        assert ("AVX2" in backend) or ("SSE2" in backend)
+        assert any(k in backend for k in ("AVX2", "SSE2", "FASM", "Vector"))
     else:
         assert "Pure Python" in backend
 

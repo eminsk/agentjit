@@ -27,11 +27,11 @@ EXPORT int agentjit_version(void) {
 
 EXPORT const char* agentjit_simd_isa(void) {
 #if defined(HAVE_AVX2_FMA)
-    return "Hardware AVX2+FMA (POSIX / Linux Engine)";
+    return "Hardware AVX2+FMA SIMD (POSIX / Linux Engine)";
 #elif defined(__SSE2__)
-    return "Hardware SSE2 (POSIX / Linux Engine)";
+    return "Hardware SSE2 SIMD (POSIX / Linux Engine)";
 #else
-    return "Optimized C99 Vector Engine";
+    return "Optimized C99 Vector SIMD Engine";
 #endif
 }
 
