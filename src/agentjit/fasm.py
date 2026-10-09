@@ -93,34 +93,86 @@ def _bind_fasm_library(lib: ctypes.CDLL) -> ctypes.CDLL:
 
 
 def _find_and_load_fasm_lib() -> Optional[ctypes.CDLL]:
-    """Locates and loads the native FASM DLL (64-bit or 32-bit)."""
+    """Locates and loads the native hardware SIMD/FASM library (Windows/Linux/macOS)."""
     global _FASM_ISA
-    if not sys.platform.startswith("win"):
-        return None
+
+    env_path = os.environ.get("AGENTJIT_SIMD_LIB") or os.environ.get("AGENTJIT_FASM_LIB")
+    if env_path and Path(env_path).exists():
+        try:
+            lib = ctypes.CDLL(env_path)
+            bound = _bind_fasm_library(lib)
+            if hasattr(bound, "agentjit_simd_isa"):
+                _FASM_ISA = bound.agentjit_simd_isa().decode("utf-8", errors="replace")
+            return bound
+        except Exception:
+            pass
 
     is_64bit = sys.maxsize > 2**32
-    dll_name = "agentjit64.dll" if is_64bit else "agentjit32.dll"
+    if sys.platform.startswith("win"):
+        target_names = ["agentjit64.dll"] if is_64bit else ["agentjit32.dll"]
+    elif sys.platform.startswith("darwin"):
+        target_names = ["libagentjit.dylib", "libagentjit64.dylib"]
+    else:
+        # Linux / POSIX
+        target_names = (
+            ["libagentjit64.so", "agentjit64.so", "libagentjit.so"]
+            if is_64bit
+            else ["libagentjit32.so", "agentjit32.so", "libagentjit.so"]
+        )
 
     pkg_dir = Path(__file__).resolve().parent
-    candidates = [
-        pkg_dir / dll_name,
-        pkg_dir.parent / dll_name,
-        pkg_dir.parent / "asm" / dll_name,
-        pkg_dir.parent.parent / "asm" / dll_name,
-        Path(r"C:\proekts\agentjit\asm") / dll_name,
-        Path(r"C:\proekts\agentjit\src\agentjit") / dll_name,
+    search_dirs = [
+        pkg_dir,
+        pkg_dir.parent,
+        pkg_dir.parent / "asm",
+        pkg_dir.parent.parent / "asm",
+        Path(r"C:\proekts\agentjit\asm"),
+        Path(r"C:\proekts\agentjit\src\agentjit"),
+        Path("/usr/local/lib"),
+        Path("/tmp"),
+        Path.cwd(),
     ]
 
-    for cand in candidates:
-        if cand.exists():
-            try:
-                lib = ctypes.CDLL(str(cand))
-                bound_lib = _bind_fasm_library(lib)
-                if hasattr(bound_lib, "agentjit_simd_isa"):
-                    _FASM_ISA = bound_lib.agentjit_simd_isa().decode("utf-8", errors="replace")
-                return bound_lib
-            except Exception:
-                continue
+    for d in search_dirs:
+        for name in target_names:
+            cand = d / name
+            if cand.exists():
+                try:
+                    lib = ctypes.CDLL(str(cand))
+                    bound_lib = _bind_fasm_library(lib)
+                    if hasattr(bound_lib, "agentjit_simd_isa"):
+                        _FASM_ISA = bound_lib.agentjit_simd_isa().decode("utf-8", errors="replace")
+                    return bound_lib
+                except Exception:
+                    continue
+
+    # On-demand compilation on Linux/macOS if gcc/clang and kernel source are available
+    if not sys.platform.startswith("win"):
+        try:
+            import shutil
+            import subprocess
+
+            cc = shutil.which("gcc") or shutil.which("clang")
+            if cc:
+                c_candidates = [
+                    pkg_dir / "agentjit_kernel.c",
+                    pkg_dir.parent / "asm" / "agentjit_kernel.c",
+                    pkg_dir.parent.parent / "asm" / "agentjit_kernel.c",
+                    Path(r"/content/agentjit/asm/agentjit_kernel.c"),
+                ]
+                src_c = next((c for c in c_candidates if c.exists()), None)
+                if src_c:
+                    out_so = Path("/tmp") / target_names[0]
+                    cmd = [cc, "-O3", "-shared", "-fPIC", "-mavx2", "-mfma", "-ffast-math", str(src_c), "-o", str(out_so), "-lm"]
+                    res = subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                    if res.returncode == 0 and out_so.exists():
+                        lib = ctypes.CDLL(str(out_so))
+                        bound_lib = _bind_fasm_library(lib)
+                        if hasattr(bound_lib, "agentjit_simd_isa"):
+                            _FASM_ISA = bound_lib.agentjit_simd_isa().decode("utf-8", errors="replace")
+                        return bound_lib
+        except Exception:
+            pass
 
     return None
 
