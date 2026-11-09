@@ -57,7 +57,7 @@ agentjit = "agentjit.cli:main"
 agentjit-mcp = "agentjit.mcp_server:main_mcp"
 
 [project.urls]
-Homepage = "https://github.com/eminsk/agentjit"
+Homepage = "https://eminsk.github.io/#agentjit"
 Documentation = "https://github.com/eminsk/agentjit#readme"
 Repository = "https://github.com/eminsk/agentjit.git"
 Issues = "https://github.com/eminsk/agentjit/issues"
